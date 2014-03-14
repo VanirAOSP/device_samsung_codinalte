@@ -133,4 +133,7 @@ def FullOTA_InstallEnd(info):
   info.script.AppendExtra('set_metadata("/system/xbin/procmem", "uid", 0, "gid", 0, "mode", 06755, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");')
   info.script.AppendExtra('set_metadata("/system/xbin/procrank", "uid", 0, "gid", 0, "mode", 06755, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");')
   info.script.AppendExtra('set_metadata("/system/xbin/su", "uid", 0, "gid", 0, "mode", 06755, "capabilities", 0x0, "selabel", "u:object_r:su_exec:s0");')
+  info.script.AppendExtra('set_metadata_recursive("/system/etc/init.d", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0755, "capabilities", 0x0);')
+  info.script.AppendExtra('set_metadata_recursive("/data/cron", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0755, "capabilities", 0x0);')
+  info.script.AppendExtra('set_metadata_recursive("/system/etc/cron", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0755, "capabilities", 0x0);')
 

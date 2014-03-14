@@ -27,6 +27,7 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := montblanc
 TARGET_SOC := u8500
 COMMON_GLOBAL_CFLAGS += -DSTE_HARDWARE -DSTE_SAMSUNG_HARDWARE
+BOARD_USES_STE_HARDWARE := true
 
 # Architecture
 TARGET_ARCH := arm
@@ -50,6 +51,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # Kernel
 TARGET_KERNEL_CONFIG := cyanogenmod_codinanewcotmo_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/codina
+TARGET_KERNEL_USE_AOSP_TOOLCHAIN :=true
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/codina/shbootimg.mk
 BOARD_KERNEL_CMDLINE := "androidboot.selinux=permissive"
 BOARD_KERNEL_BASE := 0x00000000
