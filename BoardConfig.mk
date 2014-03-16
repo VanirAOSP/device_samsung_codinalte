@@ -51,6 +51,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # Kernel
 TARGET_KERNEL_CONFIG := cyanogenmod_codinanewcotmo_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/codinalte
+TARGET_GCC_VERSION := 4.8
 TARGET_KERNEL_USE_AOSP_TOOLCHAIN :=true
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/codinalte/shbootimg.mk
 BOARD_KERNEL_CMDLINE := "androidboot.selinux=permissive"
