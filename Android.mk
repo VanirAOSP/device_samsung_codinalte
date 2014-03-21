@@ -17,6 +17,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),codinalte)
-    include $(call first-makefiles-under,$(LOCAL_PATH))
+ifneq ($(filter codinalte golden skomer,$(TARGET_DEVICE)),)
+include $(call all-subdir-makefiles,$(LOCAL_PATH))
 endif

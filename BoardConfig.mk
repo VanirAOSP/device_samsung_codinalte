@@ -59,7 +59,9 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 
 # Releasetools
+ifeq ($(filter golden skomer,$(TARGET_DEVICE)),)
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/codinalte
+endif
 
 # Ramdisk
 TARGET_PROVIDES_ENVIRON_RC := true

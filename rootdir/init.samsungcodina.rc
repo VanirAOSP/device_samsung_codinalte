@@ -55,7 +55,7 @@ on init
 on fs
 
     mount_all /fstab.samsungcodina
-    swapon_all fstab.samsungcodina
+    swapon_all /fstab.samsungcodina
     setprop ro.crypto.fuse_sdcard true
     start cspsa
 
@@ -129,6 +129,8 @@ on post-fs
     chmod 0666 /dev/mpu60x0_gyro
     chmod 0666 /dev/mpu60x0_accel
     chmod 0666 /dev/mmc3280
+
+    # Change the permission sensor chips
     chown root system /dev/alps_io
     chmod 0660 /dev/alps_io
     chown root system /dev/alps_compass_io
@@ -139,6 +141,14 @@ on post-fs
     chown system system /system/etc/param.dat
     chmod 0664 /system/etc/calib.dat
     chmod 0664 /system/etc/param.dat
+
+    chown system system /efs
+    chmod 0775 /efs
+    chown system system /efs/calibration_data
+    chmod 0770 /efs/calibration_data
+
+    chown system system /efs/prox_cal
+    chmod 0770 /efs/prox_cal
 
     # sensors
     chown system input /sys/class/input/input2/enable
@@ -367,23 +377,10 @@ on boot
     chown bluetooth bluetooth /dev/ttyAMA0
     chmod 0660 /dev/ttyAMA0
 
-    # permissions for FMRadio of Broadcom
-    chmod 0777 /system/bin/btld
-
     # power up/down interface
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-
-    # for bluetooth. change access rights as btld runs as bluetooth user
-    chown root bluetooth /sys/class/rfkill/rfkill0
-    chown root bluetooth /sys/class/rfkill/rfkill0/claim	
-    chown root bluetooth /sys/class/rfkill/rfkill0/soft
-    chmod 0664 /sys/class/rfkill/rfkill0/claim
-    chmod 0664 /sys/class/rfkill/rfkill0/soft
-    setprop service.brcm.bt.pbap_mode btld
-    chown bluetooth /dev/ttyS2
-    chmod 0660 /dev/ttyS2
 
     # bluetooth MAC address programming
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
