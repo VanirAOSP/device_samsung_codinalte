@@ -16,8 +16,6 @@
 # limitations under the License.
 #
 
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
-
 # Inherit from those products. Most specific first.
 $(call inherit-product, build/target/product/full_base_telephony.mk)
 $(call inherit-product, build/target/product/languages_full.mk)
