@@ -113,7 +113,6 @@ ENABLE_WEBGL := true
 BOARD_USES_ALSA_AUDIO := true
 COMMON_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB -DMR1_AUDIO_BLOB
 BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
-AUDIO_FEATURE_DISABLED_DS1_DOLBY_DDP := true
 
 # Vold
 BOARD_VOLD_MAX_PARTITIONS := 25
@@ -124,7 +123,7 @@ BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
 
 # Allow suspend in charge mode
-BOARD_CHARGER_ENABLE_SUSPEND := false
+#BOARD_CHARGER_ENABLE_SUSPEND := false
 
 # Needed for blobs
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
@@ -139,8 +138,8 @@ BOARD_RECOVERY_SWIPE := true
 BOARD_SUPPRESS_EMMC_WIPE := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS += \
-	device/samsung/codinalte/sepolicy
+#BOARD_SEPOLICY_DIRS += \
+#	device/samsung/codinalte/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-	file_contexts \
+#BOARD_SEPOLICY_UNION += \
+#	file_contexts \
