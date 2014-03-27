@@ -120,7 +120,8 @@ BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
 
 # Charging mode
-BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+BOARD_LPM_BOOT_ARGUMENT_NAME := lpm_boot
+BOARD_LPM_BOOT_ARGUMENT_VALUE := 1
 
 # Allow suspend in charge mode
 #BOARD_CHARGER_ENABLE_SUSPEND := false
