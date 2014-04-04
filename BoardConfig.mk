@@ -52,7 +52,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_KERNEL_CONFIG := cyanogenmod_codinanewcotmo_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/codinalte
 TARGET_GCC_VERSION := 4.8
-TARGET_KERNEL_USE_AOSP_TOOLCHAIN :=true
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := linaro-4.8
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/codinalte/shbootimg.mk
 BOARD_KERNEL_CMDLINE := "androidboot.selinux=permissive"
 BOARD_KERNEL_BASE := 0x00000000
