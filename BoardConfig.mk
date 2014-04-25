@@ -70,6 +70,7 @@ BOARD_HAL_STATIC_LIBRARIES := libhealthd.montblanc
 TARGET_PROVIDES_ENVIRON_RC := true
 
 # Graphics
+TARGET_MIN_NUM_FRAME_BUFFERS := 3
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/samsung/codinalte/configs/lib/egl/egl.cfg
 COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
