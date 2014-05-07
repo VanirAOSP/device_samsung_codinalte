@@ -127,6 +127,11 @@ BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charg
 # Allow suspend in charge mode
 #BOARD_CHARGER_ENABLE_SUSPEND := false
 
+# Enable BLN
+ifeq ($(filter skomer,$(TARGET_DEVICE)),)
+BOARD_USE_BLN := true
+endif
+
 # Needed for blobs
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
