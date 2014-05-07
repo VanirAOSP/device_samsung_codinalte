@@ -63,9 +63,6 @@ ifeq ($(filter golden skomer,$(TARGET_DEVICE)),)
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/codinalte
 endif
 
-# Override healthd HAL
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.montblanc
-
 # Ramdisk
 TARGET_PROVIDES_ENVIRON_RC := true
 
