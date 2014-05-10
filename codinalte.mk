@@ -193,6 +193,19 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
+# Optional CM packages
+PRODUCT_PACKAGES += \
+    Galaxy4 \
+    HoloSpiralWallpaper \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    MagicSmokeWallpapers \
+    NoiseField \
+    PhaseBeam \
+    VisualizationWallpapers \
+    PhotoTable \
+    SoundRecorder
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
