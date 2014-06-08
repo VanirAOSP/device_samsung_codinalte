@@ -88,6 +88,7 @@ def FullOTA_Assertions(info):
 def FullOTA_InstallEnd(info):
   info.script.AppendExtra('assert(run_program("/tmp/blobinstaller.sh") == 0);')
   info.script.AppendExtra('assert(run_program("/tmp/restorecon.sh") == 0);')
+  info.script.AppendExtra('symlink("/system/lib/libjhead.so", "/system/lib/libhead.so");')
 
 # We have to reset all permissions after install blobs on system and this is the only way I could find to do it.
 # It would be better if FullOTA_InstallEnd(info) was called before system permissions are set
