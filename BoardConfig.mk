@@ -51,8 +51,6 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # Kernel
 TARGET_KERNEL_CONFIG := cyanogenmod_codinanewcotmo_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/codinalte
-#TARGET_GCC_VERSION := 4.8
-TARGET_KERNEL_CUSTOM_TOOLCHAIN := linaro-4.7
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/codinalte/shbootimg.mk
 BOARD_KERNEL_CMDLINE := "androidboot.selinux=permissive"
 BOARD_KERNEL_BASE := 0x00000000
@@ -115,18 +113,14 @@ ENABLE_WEBGL := true
 BOARD_USES_ALSA_AUDIO := true
 COMMON_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB -DMR1_AUDIO_BLOB
 BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
-BOARD_HAVE_PRE_KITKAT_AUDIO_POLICY_BLOB := true
 
 # Vold
-BOARD_VOLD_MAX_PARTITIONS := 25
+BOARD_VOLD_MAX_PARTITIONS := 26
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
 
 # Charging mode
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
-
-# Allow suspend in charge mode
-#BOARD_CHARGER_ENABLE_SUSPEND := false
 
 # Enable BLN
 ifeq ($(filter skomer,$(TARGET_DEVICE)),)
@@ -136,18 +130,4 @@ endif
 # Needed for blobs
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
-# Recovery
-BOARD_UMS_LUNFILE := "/sys/devices/platform/musb-ux500.0/musb-hdrc/gadget/lun0/file"
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/musb-ux500.0/musb-hdrc/gadget/lun%d/file"
-BOARD_HAS_NO_MISC_PARTITION := true
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/codinalte/recovery/graphics.c
-BOARD_HAS_NO_SELECT_BUTTON := true
-BOARD_RECOVERY_SWIPE := true
-BOARD_SUPPRESS_EMMC_WIPE := true
 
-# SELinux
-#BOARD_SEPOLICY_DIRS += \
-#	device/samsung/codinalte/sepolicy
-
-#BOARD_SEPOLICY_UNION += \
-#	file_contexts \

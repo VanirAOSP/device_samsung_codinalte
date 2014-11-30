@@ -44,10 +44,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.samsungcodina.usb.rc:root/init.samsungcodina.usb.rc \
     $(LOCAL_PATH)/rootdir/lpm.rc:root/lpm.rc
 
-# Recovery ramdisk, libraries and modules.
+# Recovery ramdisk
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/rootdir/init.recovery.samsungcodina.rc:root/init.recovery.samsungcodina.rc \
-    $(LOCAL_PATH)/recovery/rootdir/sbin/parted:recovery/root/sbin/parted
+    $(LOCAL_PATH)/recovery/rootdir/init.recovery.samsungcodina.rc:root/init.recovery.samsungcodina.rc
 
 # Inputs
 PRODUCT_COPY_FILES += \
@@ -76,7 +75,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/etc/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/configs/omxloaders:system/omxloaders
+    $(LOCAL_PATH)/configs/omxloaders:system/omxloaders \
+    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 PRODUCT_PACKAGES += \
     libomxil-bellagio
@@ -112,7 +115,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
-    libnetcmdiface
+    dhcpcd.conf \
+    hostapd \
+    libnetcmdiface \
+    libwpa_client \
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
