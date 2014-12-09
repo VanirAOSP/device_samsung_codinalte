@@ -375,7 +375,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             case RIL_REQUEST_ENTER_SIM_PUK2: ret =  responseInts(p); break;
             case RIL_REQUEST_CHANGE_SIM_PIN: ret =  responseInts(p); break;
             case RIL_REQUEST_CHANGE_SIM_PIN2: ret =  responseInts(p); break;
-            case RIL_REQUEST_ENTER_DEPERSONALIZATION_CODE: ret =  responseInts(p); break;
+            case RIL_REQUEST_ENTER_NETWORK_DEPERSONALIZATION: ret =  responseInts(p); break;
             case RIL_REQUEST_GET_CURRENT_CALLS: ret =  responseCallList(p); break;
             case RIL_REQUEST_DIAL: ret =  responseVoid(p); break;
             case RIL_REQUEST_GET_IMSI: ret =  responseString(p); break;
@@ -808,7 +808,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             return response;
 
         /* Matching Samsung signal strength to asu.
-                   Method taken from Samsungs cdma/gsmSignalStateTracker */
+		   Method taken from Samsungs cdma/gsmSignalStateTracker */
         if(mSignalbarCount)
         {
             //Samsung sends the count of bars that should be displayed instead of
@@ -825,9 +825,9 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
         if(response[6] < 0 || response[6] > 8)
             response[6] = -1;
 
-        SignalStrength signalStrength = new SignalStrength(
-                    response[0], response[1], response[2], response[3], response[4],
-                    response[5], response[6], !mIsSamsungCdma);
+	SignalStrength signalStrength = new SignalStrength(
+	            response[0], response[1], response[2], response[3], response[4],
+	            response[5], response[6], !mIsSamsungCdma);
         return signalStrength;
     }
 
