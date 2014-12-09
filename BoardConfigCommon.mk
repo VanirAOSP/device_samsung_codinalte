@@ -22,3 +22,5 @@
 
 # inherit from common codinalte
 -include device/samsung/codinalte/BoardConfig.mk
+
+BOARD_NEEDS_SEC_RIL_WORKAROUND := true
