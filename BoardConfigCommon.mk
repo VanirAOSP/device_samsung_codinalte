@@ -23,4 +23,6 @@
 # inherit from common codinalte
 -include device/samsung/codinalte/BoardConfig.mk
 
-BOARD_NEEDS_SEC_RIL_WORKAROUND := true
+ifeq ($(TARGET_DEVICE),codinalte)
+    include $(call all-subdir-makefiles)
+endif

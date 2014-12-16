@@ -94,6 +94,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/bin/usbid_init.sh:system/bin/usbid_init.sh \
 
+# Media
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.use-awesome=1
 
 # Screen
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -115,10 +118,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
-    dhcpcd.conf \
-    hostapd \
     libnetcmdiface \
-    libwpa_client \
     wpa_supplicant \
     wpa_supplicant.conf
 
@@ -140,6 +140,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=SamsungU8500RIL \
     ro.telephony.sends_barcount=1 \
     ro.telephony.default_network=0
+
 
 # GPS
 PRODUCT_COPY_FILES += \

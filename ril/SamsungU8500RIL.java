@@ -76,6 +76,7 @@ import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.telephony.Rlog;
 
+
 import com.android.internal.telephony.gsm.SmsBroadcastConfigInfo;
 import com.android.internal.telephony.gsm.SuppServiceNotification;
 import com.android.internal.telephony.cdma.CdmaCallWaitingNotification;
@@ -86,6 +87,8 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.Runtime;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -181,7 +184,7 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
     private boolean mSignalbarCount = SystemProperties.getInt("ro.telephony.sends_barcount", 0) == 1 ? true : false;
     private boolean mIsSamsungCdma = SystemProperties.getBoolean("ro.ril.samsung_cdma", false);
 
-    public SamsungU8500RIL(Context context, int networkMode, int cdmaSubscription) {
+    public SamsungU8500RIL(Context context, int networkMode, int cdmaSubscription, Integer instanceId) {
         super(context, networkMode, cdmaSubscription);
         mQANElements = 5;
     }
@@ -192,6 +195,16 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
             case RIL_REQUEST_DIAL_EMERGENCY: return "DIAL_EMERGENCY";
             default: return RIL.requestToString(request);
         }
+    }
+
+    //@Override
+    public void setCurrentPreferredNetworkType() {
+        if (RILJ_LOGD) riljLog("setCurrentPreferredNetworkType IGNORED");
+        /* Google added this as a fix for crespo loosing network type after
+         * taking an OTA. This messes up the data connection state for us
+         * due to the way we handle network type change (disable data
+         * then change then re-enable).
+         */
     }
 
     private boolean NeedReconnect()
@@ -255,6 +268,57 @@ public class SamsungU8500RIL extends RIL implements CommandsInterface {
 
         private synchronized void stopListening() {
             mContext.unregisterReceiver(mConnectivityReceiver);
+        }
+
+	private void setMobileDataEnabled(Context context, boolean enabled) {
+	    try {
+	
+	        final ConnectivityManager conman = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	        final Class conmanClass = Class.forName(conman.getClass().getName());
+	        final Field iConnectivityManagerField = conmanClass.getDeclaredField("mService");
+	        iConnectivityManagerField.setAccessible(true);
+	        final Object iConnectivityManager = iConnectivityManagerField.get(conman);
+	        final Class iConnectivityManagerClass = Class.forName(iConnectivityManager.getClass().getName());
+	        final Method setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
+	        setMobileDataEnabledMethod.setAccessible(true);
+
+	        setMobileDataEnabledMethod.invoke(iConnectivityManager, enabled);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }         
+	}
+
+        public void setPreferedNetworkType(int networkType, Message response)
+        {
+            Rlog.d(RILJ_LOG_TAG, "Mobile Dataconnection is online setting it down");
+            mDesiredNetworkType = networkType;
+            mNetworktypeResponse = response;
+            //ConnectivityManager cm =
+            //    (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+            //start listening for the connectivity change broadcast
+            startListening();
+            setMobileDataEnabled(mContext, false);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch(msg.what) {
+            //networktype was set, now we can enable the dataconnection again
+            case MESSAGE_SET_PREFERRED_NETWORK_TYPE:
+                //ConnectivityManager cm =
+                //    (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                Rlog.d(RILJ_LOG_TAG, "preferred NetworkType set upping Mobile Dataconnection");
+                setMobileDataEnabled(mContext, true);
+                //everything done now call back that we have set the networktype
+                AsyncResult.forMessage(mNetworktypeResponse, null, null);
+                mNetworktypeResponse.sendToTarget();
+                mNetworktypeResponse = null;
+                break;
+            default:
+                throw new RuntimeException("unexpected event not handled");
+            }
         }
 
         private class ConnectivityBroadcastReceiver extends BroadcastReceiver {
