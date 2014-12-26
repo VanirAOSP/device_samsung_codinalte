@@ -71,22 +71,20 @@ def FullOTA_Assertions(info):
 
 
   info.script.AppendExtra(
-        ('package_extract_dir("codinamtr", "/tmp/codinamtr");\n'))
+        ('package_extract_dir("codinamtr", "/tmp/codinamtr");\n'
+         'set_perm(0, 0, 0777, "/tmp/codinamtr");'))
   info.script.AppendExtra(
-        ('package_extract_dir("codinatmo", "/tmp/codinatmo");\n'))
+        ('package_extract_dir("codinatmo", "/tmp/codinatmo");\n'
+         'set_perm(0, 0, 0777, "/tmp/codinatmo");'))
   info.script.AppendExtra(
-        ('package_extract_dir("codinavid", "/tmp/codinavid");\n'))
+        ('package_extract_dir("codinavid", "/tmp/codinavid");\n'
+         'set_perm(0, 0, 0777, "/tmp/codinavid");'))
   info.script.AppendExtra(
-        ('package_extract_file("blobinstaller.sh", "/tmp/blobinstaller.sh");\n'))
+        ('package_extract_file("blobinstaller.sh", "/tmp/blobinstaller.sh");\n'
+         'set_perm(0, 0, 0777, "/tmp/blobinstaller.sh");'))
   info.script.AppendExtra(
-        ('package_extract_file("restorecon.sh", "/tmp/restorecon.sh");\n'))
-
-  self.script.append('set_perm(0, 0, 0755, "/tmp/codinamtr");')
-  self.script.append('set_perm(0, 0, 0755, "/tmp/codinatmo");')
-  self.script.append('set_perm(0, 0, 0755, "/tmp/codinavid");')
-  self.script.append('set_perm(0, 0, 0755, "/tmp/blobinstaller.sh");')
-  self.script.append('set_perm(0, 0, 0755, "/tmp/restorecon.sh");')
-
+        ('package_extract_file("restorecon.sh", "/tmp/restorecon.sh");\n'
+         'set_perm(0, 0, 0777, "/tmp/restorecon.sh");'))
 
 def FullOTA_InstallEnd(info):
   info.script.AppendExtra('assert(run_program("/tmp/blobinstaller.sh") == 0);')
